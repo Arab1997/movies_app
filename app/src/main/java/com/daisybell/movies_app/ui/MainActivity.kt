@@ -72,8 +72,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(MOVIE_OVERVIEW, movie.overview)
         startActivity(intent)
     }
-
-
     // get Popular Movies
     private fun getPopularMovies() {
         MoviesRepository.getPopularMovies(
@@ -82,7 +80,6 @@ class MainActivity : AppCompatActivity() {
             ::onError
         )
     }
-
     private fun onPopularMoviesFetched(movies: List<Movie>) {
         popularMoviesAdapter.appendMovies(movies)
         attachPopularMoviesOnScrollListener()

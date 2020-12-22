@@ -3,12 +3,13 @@ package com.daisybell.movies_app.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.media.RatingCompat
+import android.view.LayoutInflater
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,8 +17,11 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.daisybell.movies_app.R
 import com.daisybell.movies_app.adapter.MoviesAdapter
 import com.daisybell.movies_app.data.Movie
+import com.daisybell.movies_app.data.uimodel.CastViewItem
 import com.daisybell.movies_app.netrowk.MoviesRepository
-import com.daisybell.movies_app.netrowk.MoviesRepository.getTopRatedMovies
+import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.activity_movie_details.*
+import com.daisybell.movies_app.data.Genre as Genre
 
 const val MOVIE_BACKDROP = "extra_movie_backdrop"
 const val MOVIE_POSTER = "extra_movie_poster"
@@ -37,8 +41,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private var topRatedMoviesPage = 1
     private var upcomingMoviesPage = 1
-
-
 
     private lateinit var backdrop: ImageView
     private lateinit var poster: ImageView
@@ -80,7 +82,20 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
         getUpcomingMovies()
         getTopRatedMovies()
+
+       // setupGenresChipGroup(it)
+        //setupGenresChipGroup(fragmentViewState.getMovieDetailItems().genres)
+        fun setupGenresChipGroup(genres: List<Genre>) {
+           chipGroupGenres.apply {
+               for (genre in genres) {
+                   val chip = Chip(context)
+                   chip.text = genre.name
+                   addView(chip)
+               }
+           }
+       }
     }
+
     private fun showMovieDetails(movie: Movie) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)

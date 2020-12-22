@@ -1,4 +1,4 @@
-package com.daisybell.movies_app.data
+package com.daisybell.movies_app.data.response
 
 import com.daisybell.movies_app.data.Cast
 import com.google.gson.annotations.SerializedName

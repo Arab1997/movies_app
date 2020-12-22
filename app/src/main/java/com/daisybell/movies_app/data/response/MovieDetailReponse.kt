@@ -1,6 +1,10 @@
-package com.daisybell.movies_app.data
+package com.daisybell.movies_app.data.response
 
 
+import com.daisybell.movies_app.data.Genre
+import com.daisybell.movies_app.data.ProductionCompanie
+import com.daisybell.movies_app.data.ProductionCountry
+import com.daisybell.movies_app.data.SpokenLanguage
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetailReponse(

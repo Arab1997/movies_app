@@ -1,4 +1,4 @@
-package barissaglam.client.movieapp.data.model
+package com.daisybell.movies_app.data
 
 import com.google.gson.annotations.SerializedName
 

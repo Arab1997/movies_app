@@ -2,7 +2,7 @@ package com.daisybell.movies_app.netrowk.repository
 
 
 import com.daisybell.movies_app.data.Movie
-import barissaglam.client.movieapp.data.model.response.CastResponse
+import com.daisybell.movies_app.data.CastResponse
 import com.daisybell.movies_app.data.MovieDetailReponse
 import com.daisybell.movies_app.domain.repository.IMovieRepository
 import com.daisybell.movies_app.netrowk.service.RemoteApiService

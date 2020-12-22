@@ -1,7 +1,7 @@
 package com.daisybell.movies_app.netrowk.service
 
 import com.daisybell.movies_app.data.Movie
-import barissaglam.client.movieapp.data.model.response.CastResponse
+import com.daisybell.movies_app.data.CastResponse
 import com.daisybell.movies_app.data.MovieDetailReponse
 import io.reactivex.Observable
 import retrofit2.http.GET
