@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.daisybell.movies_app.data.Movie
 import com.daisybell.movies_app.R
 import com.daisybell.movies_app.adapter.MoviesAdapter
-import com.daisybell.movies_app.data.Movie
 import com.daisybell.movies_app.netrowk.MoviesRepository
 
 class MainActivity : AppCompatActivity() {
@@ -73,23 +73,21 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-// get Popular Movies
+
+    // get Popular Movies
     private fun getPopularMovies() {
-    MoviesRepository.getPopularMovies(
-        popularMoviesPage,
-        ::onPopularMoviesFetched,
-        ::onError
-    )
+        MoviesRepository.getPopularMovies(
+            popularMoviesPage,
+            ::onPopularMoviesFetched,
+            ::onError
+        )
     }
 
-   // get Top Rated Movies
-    private fun getTopRatedMovies() {
-       MoviesRepository.getTopRatedMovies(
-           topRatedMoviesPage,
-           ::onTopRatedMoviesFetched,
-           ::onError
-       )
+    private fun onPopularMoviesFetched(movies: List<Movie>) {
+        popularMoviesAdapter.appendMovies(movies)
+        attachPopularMoviesOnScrollListener()
     }
+
     // get Popular Movies
     private fun attachPopularMoviesOnScrollListener() {
         popularMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -109,7 +107,18 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+    // get Top Rated Movies
+    private fun getTopRatedMovies() {
+        MoviesRepository.getTopRatedMovies(
+            topRatedMoviesPage,
+            ::onTopRatedMoviesFetched,
+            ::onError
+        )
+    }
+    private fun onTopRatedMoviesFetched(movies: List<Movie>) {
+        topRatedMoviesAdapter.appendMovies(movies)
+        attachTopRatedMoviesOnScrollListener()
+    }
     // get Top Rated Movies
     private fun attachTopRatedMoviesOnScrollListener() {
         topRatedMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -126,9 +135,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
     // get Upcoming Movies
-
     private fun getUpcomingMovies() {
         MoviesRepository.getUpcomingMovies(
             upcomingMoviesPage,
@@ -136,7 +143,10 @@ class MainActivity : AppCompatActivity() {
             ::onError
         )
     }
-
+    private fun onUpcomingMoviesFetched(movies: List<Movie>) {
+        upcomingMoviesAdapter.appendMovies(movies)
+        attachUpcomingMoviesOnScrollListener()
+    }
     private fun attachUpcomingMoviesOnScrollListener() {
         upcomingMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -152,20 +162,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun onUpcomingMoviesFetched(movies: List<Movie>) {
-        upcomingMoviesAdapter.appendMovies(movies)
-        attachUpcomingMoviesOnScrollListener()
-    }
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
-        popularMoviesAdapter.appendMovies(movies)
-        attachPopularMoviesOnScrollListener()
-    }
-    private fun onTopRatedMoviesFetched(movies: List<Movie>) {
-        topRatedMoviesAdapter.appendMovies(movies)
-        attachTopRatedMoviesOnScrollListener()
-    }
-
         private fun onError() {
         Toast.makeText(this, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
     }
